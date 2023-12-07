@@ -1,0 +1,50 @@
+// Write a program to interface LEDs at pins 10,11,12,13 and buttons at pins 7,8.
+ When first
+time button at pin 7(increment button) is pressed first LED at pin 10 is switched on, when
+second time button is pressed the next LED at 11 is switched on. Similarly, when the button
+at pin 8 (decrement button) is pressed the LEDs are switched off sequentially.
+
+
+const int incrementButtonPin = 7;  // Pin for the increment button
+const int decrementButtonPin = 8;  // Pin for the decrement button
+const int ledPins[] = {10, 11, 12, 13};  // Pins for LEDs
+
+int ledIndex = 0;  // Variable to keep track of the active LED
+
+void setup() {
+  // Initialize buttons as input
+  pinMode(incrementButtonPin, INPUT_PULLUP);
+  pinMode(decrementButtonPin, INPUT_PULLUP);
+
+  // Initialize LEDs as output
+  for (int i = 0; i < sizeof(ledPins) / sizeof(ledPins[0]); ++i) {
+    pinMode(ledPins[i], OUTPUT);
+    digitalWrite(ledPins[i], LOW);  // Turn off all LEDs initially
+  }
+}
+
+void loop() {
+  // Check for increment button press
+  if (digitalRead(incrementButtonPin) == LOW) {
+    delay(50);  // Debounce delay
+    if (digitalRead(incrementButtonPin) == LOW) {
+      // Increment active LED index
+      ledIndex = (ledIndex + 1) % (sizeof(ledPins) / sizeof(ledPins[0]));
+      // Turn on the corresponding LED
+      digitalWrite(ledPins[ledIndex], HIGH);
+      delay(500);  // Adjust this delay as needed
+    }
+  }
+
+  // Check for decrement button press
+  if (digitalRead(decrementButtonPin) == LOW) {
+    delay(50);  // Debounce delay
+    if (digitalRead(decrementButtonPin) == LOW) {
+      // Turn off the currently active LED
+      digitalWrite(ledPins[ledIndex], LOW);
+      // Decrement active LED index
+      ledIndex = (ledIndex - 1 + sizeof(ledPins) / sizeof(ledPins[0])) % (sizeof(ledPins) / sizeof(ledPins[0]));
+      delay(500);  // Adjust this delay as needed
+    }
+  }
+}

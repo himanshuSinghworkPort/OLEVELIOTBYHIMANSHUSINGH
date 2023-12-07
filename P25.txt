@@ -1,0 +1,38 @@
+// Write a program to interface Relay and Bluetooth module to switch on AC load (5W LED
+bulb, table lamp, etc) connected to relay if 1 is passed through Bluetooth and switch off the
+AC Load if 0 is send.
+
+
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetooth(10, 11); // RX, TX pins for Bluetooth module
+int relayPin = 8; // Pin to which the relay is connected
+
+void setup() {
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW); // Initialize relay as OFF
+  Serial.begin(9600);
+  bluetooth.begin(9600);
+
+  // Wait until the Bluetooth module is connected
+  while (!bluetooth.available()) {
+    delay(10);
+  }
+}
+
+void loop() {
+  if (bluetooth.available() > 0) {
+    char command = bluetooth.read();
+    executeCommand(command);
+  }
+}
+
+void executeCommand(char command) {
+  if (command == '1') {
+    digitalWrite(relayPin, HIGH); // Turn ON the relay (AC Load)
+    Serial.println("AC Load ON");
+  } else if (command == '0') {
+    digitalWrite(relayPin, LOW); // Turn OFF the relay (AC Load)
+    Serial.println("AC Load OFF");
+  }
+}

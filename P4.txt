@@ -1,0 +1,26 @@
+// Write a program to interface buzzer with Arduino board to buzz on/off with the delay of
+1sec.
+
+
+// Define the pin to which the buzzer is connected
+const int buzzerPin = 9;  // You can change this to the actual pin number you are using
+
+void setup() 
+{
+  // Set the buzzer pin as an OUTPUT
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  // Turn the buzzer on
+  digitalWrite(buzzerPin, HIGH);
+  
+  // Wait for 1 second
+  delay(1000);
+  
+  // Turn the buzzer off
+  digitalWrite(buzzerPin, LOW);
+  
+  // Wait for 1 second
+  delay(1000);
+}

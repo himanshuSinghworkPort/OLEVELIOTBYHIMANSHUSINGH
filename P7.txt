@@ -1,0 +1,31 @@
+//
+
+const int buttonPin = 2;  // Pin connected to the button
+const int buzzerPin = 3;  // Pin connected to the buzzer
+const int ledPin = 13;    // Pin connected to the LED
+
+int buttonState = 0;      // Variable to store the button state
+int lastButtonState = 0;  // Variable to store the previous button state
+int ledState = LOW;       // Variable to store the LED state
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Read the button state
+  buttonState = digitalRead(buttonPin);
+
+  // Check if the button is pressed
+  if (buttonState == HIGH && lastButtonState == LOW) {
+    // Button is pressed, toggle LED and beep the buzzer
+    ledState = !ledState;
+    digitalWrite(ledPin, ledState);
+    tone(buzzerPin, 1000, 100);  // Beep for 100 milliseconds
+  }
+
+  // Update the last button state
+  lastButtonState = buttonState;
+}

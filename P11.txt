@@ -1,0 +1,27 @@
+// Write a program to interface Light Dependent Resistor (LDR) and LED with Arduino board.
+Whenever there is sufficient light falls on LDR the LED is off and when there is dark around
+LDR the LED is put on.
+
+const int ldrPin = A0;  // Connect LDR to analog pin A0
+const int ledPin = 13;  // Connect LED to digital pin 13
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);  // Read LDR value
+  Serial.println(ldrValue);  // Print LDR value to serial monitor (optional)
+
+  // Adjust the threshold value according to your environment
+  int threshold = 500;
+
+  if (ldrValue < threshold) {
+    digitalWrite(ledPin, HIGH);  // Turn on LED when it's dark
+  } else {
+    digitalWrite(ledPin, LOW);   // Turn off LED when there is sufficient light
+  }
+
+  delay(500);  // Adjust the delay time as needed
+}

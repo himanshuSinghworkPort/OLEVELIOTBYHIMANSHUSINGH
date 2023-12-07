@@ -1,0 +1,57 @@
+// Write a program to interface LEDs at any two PWM pins and button, to exhibit LED fading
+at the click of button
+
+// Define the PWM pins for LEDs
+const int ledPin1 = 9;  // Change this to the desired PWM pin
+const int ledPin2 = 10; // Change this to the desired PWM pin
+
+// Define the button pin
+const int buttonPin = 2; // Change this to the desired button pin
+
+// Variables to store the current state of the button
+int buttonState = 0;
+int lastButtonState = 0;
+
+// Variable to store the brightness level of the LEDs
+int brightness = 0;
+
+void setup() {
+  // Initialize the LED pins as OUTPUT
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+
+  // Initialize the button pin as INPUT
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // Read the state of the button
+  buttonState = digitalRead(buttonPin);
+
+  // Check if the button state has changed
+  if (buttonState != lastButtonState) {
+    // If the button is pressed, start the LED fading effect
+    if (buttonState == HIGH) {
+      fadeLEDs();
+    }
+  }
+
+  // Save the current button state for the next iteration
+  lastButtonState = buttonState;
+}
+
+void fadeLEDs() {
+  // Gradually increase brightness
+  for (int i = 0; i <= 255; i++) {
+    analogWrite(ledPin1, i);
+    analogWrite(ledPin2, i);
+    delay(10);
+  }
+
+  // Gradually decrease brightness
+  for (int i = 255; i >= 0; i--) {
+    analogWrite(ledPin1, i);
+    analogWrite(ledPin2, i);
+    delay(10);
+  }
+}

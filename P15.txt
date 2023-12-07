@@ -1,0 +1,34 @@
+// Write a program to interface any analog (pollution) sensor and display the values read on
+Serial monitor.
+
+
+#define ANALOG_PIN A0
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(ANALOG_PIN);
+  float voltage = sensorValue * (5.0 / 1023.0); // Convert analog reading to voltage
+  float ppm = getPPM(voltage); // Convert voltage to parts per million (PPM)
+
+  Serial.print("Analog Value: ");
+  Serial.print(sensorValue);
+  Serial.print(", Voltage: ");
+  Serial.print(voltage);
+  Serial.print("V, PPM: ");
+  Serial.println(ppm);
+
+  delay(1000); // Wait for a second before taking the next reading
+}
+
+float getPPM(float voltage) {
+  // The relationship between voltage and PPM may vary based on the sensor calibration
+  // You should refer to the datasheet or calibration information provided by the manufacturer
+  // This is a simple linear approximation for demonstration purposes, and it may not be accurate for all cases
+  float ppm = 10.0 * voltage; // Adjust this based on your sensor calibration
+  return ppm;
+}
+
+

@@ -1,0 +1,37 @@
+// Write a program to interface LEDs at any two PWM pins and exhibit LED fading.
+
+
+// Define the PWM pins for LEDs
+const int ledPin1 = 9;
+const int ledPin2 = 10;
+
+// Set the initial brightness levels
+int brightness1 = 0;
+int brightness2 = 0;
+
+// Set the increment value for brightness change
+int fadeAmount = 5;
+
+void setup() {
+  // Initialize the PWM pins as OUTPUT
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+}
+
+void loop() {
+  // Increase the brightness of LED 1
+  analogWrite(ledPin1, brightness1);
+  brightness1 = brightness1 + fadeAmount;
+
+  // Decrease the brightness of LED 2
+  analogWrite(ledPin2, brightness2);
+  brightness2 = brightness2 - fadeAmount;
+
+  // Check for boundary conditions to reverse the fading direction
+  if (brightness1 <= 0 || brightness1 >= 255) {
+    fadeAmount = -fadeAmount;
+  }
+
+  // Delay for a short duration between brightness changes
+  delay(30);
+}

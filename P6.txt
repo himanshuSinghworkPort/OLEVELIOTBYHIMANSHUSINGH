@@ -1,0 +1,31 @@
+// Write a program to interface Button and LED, so that LED blinks/glow when button is
+pressed.
+
+// Pin definitions
+const int buttonPin = 2;   // Pin number for the button
+const int ledPin = 13;     // Pin number for the LED
+
+// Variables
+int buttonState = 0;       // Variable to store the button state (LOW or HIGH)
+
+void setup() {
+  // Set the button pin as input
+  pinMode(buttonPin, INPUT);
+  
+  // Set the LED pin as output
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Read the state of the button (LOW when not pressed, HIGH when pressed)
+  buttonState = digitalRead(buttonPin);
+
+  // Check if the button is pressed
+  if (buttonState == HIGH) {
+    // Turn on the LED
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // Turn off the LED
+    digitalWrite(ledPin, LOW);
+  }
+}

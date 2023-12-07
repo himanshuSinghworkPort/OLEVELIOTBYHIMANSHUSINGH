@@ -1,0 +1,118 @@
+// Write a program using LCD, LEDs, Buzzer and keypad to simulate a password based
+security lock system. User enters 4-digit password and if the password is correct buzzer and
+Green LED is put on. But if the password is incorrect Red LED is put on. After three
+incorrect attempts Red LED along with buzzer blinks continuously.
+
+
+#include <LiquidCrystal.h>
+#include <Keypad.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int greenLed = 8;
+const int redLed = 9;
+const int buzzer = 10;
+
+const int passwordLength = 4;
+char correctPassword[passwordLength] = {'1', '2', '3', '4'};
+char enteredPassword[passwordLength];
+
+const byte ROW_NUM    = 4; // four rows
+const byte COLUMN_NUM = 4; // four columns
+char keys[ROW_NUM][COLUMN_NUM] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+byte pin_rows[ROW_NUM] = {9, 8, 7, 6}; // connect to the row pinouts of the keypad
+byte pin_column[COLUMN_NUM] = {5, 4, 3, 2}; // connect to the column pinouts of the keypad
+Keypad keypad = Keypad(makeKeymap(keys), pin_rows, pin_column, ROW_NUM, COLUMN_NUM);
+
+int incorrectAttempts = 0;
+
+void setup() {
+  lcd.begin(16, 2);
+  pinMode(greenLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  digitalWrite(greenLed, LOW);
+  digitalWrite(redLed, LOW);
+  digitalWrite(buzzer, LOW);
+  lcd.print("Enter Password:");
+}
+
+void loop() {
+  char key = keypad.getKey();
+
+  if (key) {
+    if (key == '#') {
+      if (checkPassword()) {
+        // Correct password
+        lcd.clear();
+        lcd.print("Access granted!");
+        digitalWrite(greenLed, HIGH);
+        digitalWrite(redLed, LOW);
+        digitalWrite(buzzer, HIGH);
+        delay(2000);
+        digitalWrite(greenLed, LOW);
+        digitalWrite(buzzer, LOW);
+        lcd.clear();
+        lcd.print("Enter Password:");
+      } else {
+        // Incorrect password
+        lcd.clear();
+        lcd.print("Incorrect password");
+        digitalWrite(greenLed, LOW);
+        digitalWrite(redLed, HIGH);
+        digitalWrite(buzzer, HIGH);
+        delay(1000);
+        digitalWrite(redLed, LOW);
+        digitalWrite(buzzer, LOW);
+        lcd.clear();
+        lcd.print("Enter Password:");
+        incorrectAttempts++;
+
+        if (incorrectAttempts >= 3) {
+          // Three incorrect attempts, activate continuous blinking
+          continuousBlinking();
+        }
+      }
+
+      // Reset entered password
+      memset(enteredPassword, 0, passwordLength);
+    } else {
+      // Add digit to entered password
+      addDigitToPassword(key);
+    }
+  }
+}
+
+void addDigitToPassword(char digit) {
+  static int index = 0;
+  if (index < passwordLength) {
+    enteredPassword[index++] = digit;
+    lcd.setCursor(index - 1, 1);
+    lcd.print('*');
+  }
+}
+
+bool checkPassword() {
+  for (int i = 0; i < passwordLength; i++) {
+    if (enteredPassword[i] != correctPassword[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void continuousBlinking() {
+  while (true) {
+    digitalWrite(redLed, HIGH);
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(redLed, LOW);
+    digitalWrite(buzzer, LOW);
+    delay(500);
+  }
+}

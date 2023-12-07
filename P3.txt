@@ -1,0 +1,69 @@
+/* Write a program to run pattern(s) on LEDs connect at pins 10,11,12,13.
+Pattern example:
+ on, on, off, off
+ off, on, on, off
+ off, off, on, on
+ on, off, off, off
+ off, on off, off
+ off, off, on, off
+ off, off, off, on
+*/
+
+void setup() {
+  // Set pins 10, 11, 12, and 13 as OUTPUT
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  // Pattern: on, on, off, off
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(13, LOW);
+  delay(1000);
+
+  // Pattern: off, on, on, off
+  digitalWrite(10, LOW);
+  digitalWrite(11, HIGH);
+  digitalWrite(12, HIGH);
+  digitalWrite(13, LOW);
+  delay(1000);
+
+  // Pattern: off, off, on, on
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+  digitalWrite(12, HIGH);
+  digitalWrite(13, HIGH);
+  delay(1000);
+
+  // Pattern: on, off, off, off
+  digitalWrite(10, HIGH);
+  digitalWrite(11, LOW);
+  digitalWrite(12, LOW);
+  digitalWrite(13, LOW);
+  delay(1000);
+
+  // Pattern: off, on, off, off
+  digitalWrite(10, LOW);
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(13, LOW);
+  delay(1000);
+
+  // Pattern: off, off, on, off
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+  digitalWrite(12, HIGH);
+  digitalWrite(13, LOW);
+  delay(1000);
+
+  // Pattern: off, off, off, on
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+  digitalWrite(12, LOW);
+  digitalWrite(13, HIGH);
+  delay(1000);
+}

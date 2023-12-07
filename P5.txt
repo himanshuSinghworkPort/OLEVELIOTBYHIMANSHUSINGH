@@ -1,0 +1,32 @@
+// Write a program to interface LED and Buzzer with Arduino board, so that buzzer is put on
+whenever LED is on and Buzzer is put off when LED is off.
+
+// Define the pins for LED and buzzer
+const int ledPin = 10;   // You can change this to the actual pin number you are using for the LED
+const int buzzerPin = 9; // You can change this to the actual pin number you are using for the buzzer
+
+void setup() {
+  // Set the LED and buzzer pins as OUTPUT
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  // Turn the LED on
+  digitalWrite(ledPin, HIGH);
+  
+  // Turn the buzzer on
+  digitalWrite(buzzerPin, HIGH);
+  
+  // Wait for some time (you can adjust the delay as needed)
+  delay(2000);
+  
+  // Turn the LED off
+  digitalWrite(ledPin, LOW);
+  
+  // Turn the buzzer off
+  digitalWrite(buzzerPin, LOW);
+  
+  // Wait for some time (you can adjust the delay as needed)
+  delay(2000);
+}

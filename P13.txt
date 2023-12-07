@@ -1,0 +1,34 @@
+// Write a program to interface LED at PWM pin and LDR, in such a way that when the light
+intensity falling on LDR rises the LED glow should be reduced and after a threshold value
+the LED should be put off. (representing smart street light concept)
+
+
+const int ledPin = 9;  // PWM pin for the LED
+const int ldrPin = A0; // Analog pin for the LDR
+
+int ldrThreshold = 500;  // Adjust this threshold value based on your LDR characteristics
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);
+
+  // Map the LDR value to the LED brightness (PWM range is 0 to 255)
+  int brightness = map(ldrValue, 0, 1023, 255, 0);
+  brightness = constrain(brightness, 0, 255);  // Ensure brightness is within valid range
+
+  analogWrite(ledPin, brightness);
+
+  // Uncomment the following line if you want to see LDR values in the Serial Monitor
+  // Serial.println(ldrValue);
+
+  // Check if the light intensity is below the threshold to turn off the LED
+  if (ldrValue > ldrThreshold) {
+    digitalWrite(ledPin, LOW);  // Turn off the LED
+  }
+
+  delay(100);  // Add a small delay for stability
+}

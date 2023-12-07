@@ -1,0 +1,117 @@
+// Write a program to interface LCD and keypad (4 X 4) , to exhibit the functionality of a basic
+calculator.
+1 2 3 4
+5 6 7 8
+9 0 + -
+
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Keypad.h>
+
+// Define LCD
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Define Keypad
+const byte ROW_NUM    = 4; // four rows
+const byte COLUMN_NUM = 4; // four columns
+
+char keys[ROW_NUM][COLUMN_NUM] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+byte pin_rows[ROW_NUM] = {9, 8, 7, 6}; // connect to the row pinouts of the keypad
+byte pin_column[COLUMN_NUM] = {5, 4, 3, 2}; // connect to the column pinouts of the keypad
+
+Keypad keypad = Keypad(makeKeymap(keys), pin_rows, pin_column, ROW_NUM, COLUMN_NUM);
+
+String inputBuffer = "";
+double operand1 = 0;
+double operand2 = 0;
+char operatorSign = ' ';
+bool operatorPressed = false;
+
+void setup() {
+  lcd.begin(16,2);
+  lcd.print("Calculator");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  char key = keypad.getKey();
+  
+  if (key) {
+    handleKeyPress(key);
+  }
+}
+
+void handleKeyPress(char key) {
+  if (isdigit(key) || key == '.') {
+    inputBuffer += key;
+    lcd.setCursor(0, 1);
+    lcd.print(inputBuffer);
+  } else if (key == '+' || key == '-' || key == '*' || key == '/') {
+    if (!operatorPressed) {
+      operatorSign = key;
+      operand1 = inputBuffer.toDouble();
+      inputBuffer = "";
+      operatorPressed = true;
+    }
+  } else if (key == '=') {
+    if (operatorPressed) {
+      operand2 = inputBuffer.toDouble();
+      double result = calculateResult();
+      displayResult(result);
+      resetCalculator();
+    }
+  } else if (key == 'C') {
+    resetCalculator();
+  }
+}
+
+double calculateResult() {
+  double result = 0;
+  switch (operatorSign) {
+    case '+':
+      result = operand1 + operand2;
+      break;
+    case '-':
+      result = operand1 - operand2;
+      break;
+    case '*':
+      result = operand1 * operand2;
+      break;
+    case '/':
+      if (operand2 != 0) {
+        result = operand1 / operand2;
+      } else {
+        lcd.setCursor(0, 1);
+        lcd.print("Error: Div by 0");
+        delay(2000);
+        resetCalculator();
+      }
+      break;
+  }
+  return result;
+}
+
+void displayResult(double result) {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Result: ");
+  lcd.print(result);
+  delay(2000);
+}
+
+void resetCalculator() {
+  inputBuffer = "";
+  operand1 = 0;
+  operand2 = 0;
+  operatorSign = ' ';
+  operatorPressed = false;
+  lcd.clear();
+}

@@ -1,0 +1,40 @@
+// Write a program to interface LED and Bluetooth module, to switch on the LED if 1 is passed
+through Bluetooth and switch off the LED if 0 is send.
+
+
+// Define LED pin
+const int ledPin = 13; // You can change this pin based on your Arduino board
+
+// Define Bluetooth module connections
+const int rxPin = 2; // RX pin of Bluetooth module connected to Arduino pin 2
+const int txPin = 3; // TX pin of Bluetooth module connected to Arduino pin 3
+
+char receivedData;
+
+void setup() {
+  // Start serial communication
+  Serial.begin(9600);
+
+  // Set LED pin as an output
+  pinMode(ledPin, OUTPUT);
+
+  // Set up Bluetooth communication
+  Serial1.begin(9600);
+}
+
+void loop() {
+  // Check if data is available to read from Bluetooth module
+  if (Serial1.available() > 0) {
+    // Read the received data
+    receivedData = Serial1.read();
+
+    // Process the received data
+    if (receivedData == '1') {
+      // Turn on the LED
+      digitalWrite(ledPin, HIGH);
+    } else if (receivedData == '0') {
+      // Turn off the LED
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}

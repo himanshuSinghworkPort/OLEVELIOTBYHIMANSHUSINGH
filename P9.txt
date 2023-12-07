@@ -1,0 +1,75 @@
+// Write a program to interface LEDs at pins 10,11,12,13 and button at pins 7. The press of
+button changes the pattern of LED glow. (considering four patterns of LED glow)
+
+
+
+// Define constants for LED pins
+const int ledPin1 = 10;
+const int ledPin2 = 11;
+const int ledPin3 = 12;
+const int ledPin4 = 13;
+
+// Define constant for button pin
+const int buttonPin = 7;
+
+// Variable to store the current LED pattern
+int currentPattern = 0;
+
+void setup() {
+  // Initialize LED pins as OUTPUT
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+  pinMode(ledPin4, OUTPUT);
+
+  // Initialize button pin as INPUT with pull-up resistor
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop() {
+  // Check if the button is pressed
+  if (digitalRead(buttonPin) == LOW) {
+    // Button is pressed, change the LED pattern
+    currentPattern = (currentPattern + 1) % 4;
+    delay(250);  // Debounce delay
+  }
+
+  // Display the current LED pattern
+  switch (currentPattern) {
+    case 0:
+      // Pattern 1: All LEDs OFF
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      digitalWrite(ledPin4, LOW);
+      break;
+
+    case 1:
+      // Pattern 2: Alternating LEDs ON/OFF
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, HIGH);
+      digitalWrite(ledPin4, LOW);
+      break;
+
+    case 2:
+      // Pattern 3: Sequential LEDs ON
+      digitalWrite(ledPin1, HIGH);
+      delay(250);
+      digitalWrite(ledPin2, HIGH);
+      delay(250);
+      digitalWrite(ledPin3, HIGH);
+      delay(250);
+      digitalWrite(ledPin4, HIGH);
+      delay(250);
+      break;
+
+    case 3:
+      // Pattern 4: All LEDs ON
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      digitalWrite(ledPin4, HIGH);
+      break;
+  }
+}

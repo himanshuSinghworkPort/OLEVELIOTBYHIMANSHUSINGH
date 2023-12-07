@@ -1,0 +1,101 @@
+************Internet of Things and Its Applications (M1-R5.1)**************************************
+i. Write a program to Blink default Light Emitting Diode(LED) on Arduino board with the
+delay of 2 sec.
+
+ii. Write a program to interface LEDs on pin no. 10,11,12,13 and blink alternatively at the
+delay of 1 sec.
+
+
+iii. Write a program to run pattern(s) on LEDs connect at pins 10,11,12,13.
+Pattern example:
+ on, on, off, off
+ off, on, on, off
+ off, off, on, on
+ on, off, off, off
+ off, on off, off
+ off, off, on, off
+ off, off, off, on
+
+iv. Write a program to interface buzzer with Arduino board to buzz on/off with the delay of
+1sec.
+
+
+v. Write a program to interface LED and Buzzer with Arduino board, so that buzzer is put on
+whenever LED is on and Buzzer is put off when LED is off.
+
+
+vi. Write a program to interface Button and LED, so that LED blinks/glow when button is
+pressed.
+
+
+vii. Write a program to interface Button, buzzer and LED, whenever the button is pressed the
+buzzer gives beep for 100ms and LED status is toggled.
+
+viii. Write a program to interface LEDs at pins 10,11,12,13 and buttons at pins 7,8.
+ When first
+time button at pin 7(increment button) is pressed first LED at pin 10 is switched on, when
+second time button is pressed the next LED at 11 is switched on. Similarly, when the button
+at pin 8 (decrement button) is pressed the LEDs are switched off sequentially.
+
+
+ix. Write a program to interface LEDs at pins 10,11,12,13 and button at pins 7. The press of
+button changes the pattern of LED glow. (considering four patterns of LED glow)
+
+x. Write a program to interface Light Dependent Resistor (LDR) and display the values read
+on the Serial monitor after delay of 2 seconds each.
+
+xi. Write a program to interface Light Dependent Resistor (LDR) and LED with Arduino board.
+Whenever there is sufficient light falls on LDR the LED is off and when there is dark around
+LDR the LED is put on.
+
+xii. Write a program to interface LEDs at any two PWM pins and exhibit LED fading.
+
+xiii. Write a program to interface LED at PWM pin and LDR, in such a way that when the light
+intensity falling on LDR rises the LED glow should be reduced and after a threshold value
+the LED should be put off. (representing smart street light concept)
+
+
+xiv. Write a program to interface LEDs at any two PWM pins and button, to exhibit LED fading
+at the click of button
+
+xv. Write a program to interface any analog (pollution) sensor and display the values read on
+Serial monitor.
+
+
+xvi. Write a program to interface LCD with Arduino board and display ‘Hello world’ on it .
+
+
+xvii. Write a program to interface keypad with Arduino board and display the key pressed on
+Serial monitor.
+
+xviii. Write a program to interface LCD and keypad with Arduino board and display the key
+pressed from keypad on LCD.
+
+xix. Write a program to interface LCD and keypad (4 X 4) , to exhibit the functionality of a basic
+calculator.
+1 2 3 4
+5 6 7 8
+9 0 + -
+
+xx. Write a program using LCD, LEDs, Buzzer and keypad to simulate a password based
+security lock system. User enters 4-digit password and if the password is correct buzzer and
+Green LED is put on. But if the password is incorrect Red LED is put on. After three
+incorrect attempts Red LED along with buzzer blinks continuously.
+
+xxi. Write a program to interface LCD and DHT11, displaying the value read from sensor DHT
+on LCD.
+
+
+xxii. Write a program to interface DHT11 or any other temperature sensor, DC Motor, to exhibit
+a real life situation that whenever temperature rises above a threshold value the DC motor
+(representing fan) starts and when temperature falls below a value, the motor stops.
+
+xxiii. Write a program to interface LCD and Bluetooth module, to exhibit the values received
+from mobile handset via Bluetooth on LCD.
+
+xxiv. Write a program to interface LED and Bluetooth module, to switch on the LED if 1 is passed
+through Bluetooth and switch off the LED if 0 is send.
+
+xxv. Write a program to interface Relay and Bluetooth module to switch on AC load (5W LED
+bulb, table lamp, etc) connected to relay if 1 is passed through Bluetooth and switch off the
+AC Load if 0 is send.

@@ -1,0 +1,26 @@
+// Write a program to interface LCD with Arduino board and display ‘Hello world’ on it .
+
+#include <LiquidCrystal.h>
+
+// Pin configuration for the LCD
+const int rs = 12;  // Register select pin
+const int en = 11;  // Enable pin
+const int d4 = 5;   // Data pin 4
+const int d5 = 4;   // Data pin 5
+const int d6 = 3;   // Data pin 6
+const int d7 = 2;   // Data pin 7
+
+// Initialize the LCD
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // Set up the LCD columns and rows
+  lcd.begin(16, 2);
+
+  // Print "Hello World" on the LCD
+  lcd.print("Hello World");
+}
+
+void loop() {
+  // Nothing to do here for a static display
+}

@@ -1,0 +1,49 @@
+// Write a program to interface DHT11 or any other temperature sensor, DC Motor, to exhibit
+a real life situation that whenever temperature rises above a threshold value the DC motor
+(representing fan) starts and when temperature falls below a value, the motor stops.
+
+#include <DHT.h>
+
+#define DHTPIN 2  // Pin where the DHT11 is connected
+#define DHTTYPE DHT11  // DHT sensor type
+
+#define MOTOR_PIN 3  // Pin where the DC motor is connected
+
+DHT dht(DHTPIN, DHTTYPE);
+
+float thresholdTemperature = 25.0;  // Set your threshold temperature here
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(MOTOR_PIN, OUTPUT);
+}
+
+void loop() {
+  float temperature = dht.readTemperature();
+
+  if (isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.println(temperature);
+
+  if (temperature > thresholdTemperature) {
+    startMotor();
+  } else {
+    stopMotor();
+  }
+
+  delay(1000);  // Delay for 1 second before the next reading
+}
+
+void startMotor() {
+  digitalWrite(MOTOR_PIN, HIGH);
+  Serial.println("Fan started!");
+}
+
+void stopMotor() {
+  digitalWrite(MOTOR_PIN, LOW);
+  Serial.println("Fan stopped!");
+}

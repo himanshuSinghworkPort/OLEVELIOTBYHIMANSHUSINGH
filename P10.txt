@@ -1,0 +1,21 @@
+// Write a program to interface Light Dependent Resistor (LDR) and display the values read
+on the Serial monitor after delay of 2 seconds each.
+
+const int ldrPin = A0; // LDR connected to analog pin A0
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin); // Read LDR value (0 to 1023)
+  float voltage = ldrValue * (5.0 / 1023.0); // Convert ADC value to voltage (0 to 5V)
+
+  Serial.print("LDR Value: ");
+  Serial.print(ldrValue);
+  Serial.print(", Voltage: ");
+  Serial.print(voltage);
+  Serial.println("V");
+
+  delay(2000); // Delay 2 seconds before the next reading
+}

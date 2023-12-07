@@ -1,0 +1,36 @@
+// Write a program to interface LCD and DHT11, displaying the value read from sensor DHT
+on LCD.
+
+#include <LiquidCrystal_I2C.h>
+#include <dht.h>
+
+dht DHT;
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.begin(16, 2);  // initialize the LCD
+  lcd.print("DHT11 Sensor");
+
+  delay(2000);
+}
+
+void loop() {
+  // Reading temperature or humidity takes about 250 milliseconds!
+  int chk = DHT.read11(DHT11_PIN);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+
+  if (chk == DHTLIB_OK) {
+    lcd.print("Temp: ");
+    lcd.print(DHT.temperature);
+    lcd.print("C  Humidity: ");
+    lcd.print(DHT.humidity);
+    lcd.print("%");
+  } else {
+    lcd.print("Failed to read from DHT");
+  }
+
+  delay(2000);  // Wait for 2 seconds before reading again
+}
