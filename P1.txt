@@ -1,3 +1,13 @@
+// PROGRAM DESCRIPTION VIDEO AT http://www.youtube.com/@himanshusingheducationist7700
+// ARDUINO UNO MICROCONTROLLER BASED PROGRAMS
+// FOR O LEVEL COURSE BY NIELIT
+// Internet of Things and Its Applications M1-R5
+// PROGRAM BY HIMANSHU SINGH
+// PROGRAM :1
+//  WRITE A PROGRAM TO BLINK LED WITH THE DELAY OF 2 SECONDS.
+
+
+
 // Write a program to Blink default Light Emitting Diode(LED) on Arduino board with the
 delay of 2 sec.
 
